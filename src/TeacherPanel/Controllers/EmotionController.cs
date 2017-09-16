@@ -59,14 +59,53 @@
                 return;
             }
 
-            hubContext.Clients.All.addMessage($"{client} - {emotionStatus}");
-
-            hubContext.Clients.All.updateFocusIndex((client + emotion).Length);
+            hubContext.Clients.All.addMessage(GenerateMessage(client, emotionStatus));
+            hubContext.Clients.All.updateFocusIndex(ComputeFocusIndex(emotionStatus));
 
             if (emotionStatus == EmotionStatus.HandUp)
             {
                 hubContext.Clients.All.updateHandupCount(StatusCollection.CountHandUp(client));
             }
+        }
+
+        private static string GenerateMessage(string client, EmotionStatus emotion)
+        {
+            return $"{client} - {emotion}";
+        }
+
+        private static int ComputeFocusIndex(EmotionStatus emotion)
+        {
+            var rnd = new Random();
+            int delta = rnd.Next(1, 10);
+
+            var index = 0;
+            switch (emotion)
+            {
+                case EmotionStatus.Sleeping:
+                    index = 10;
+                    break;
+                case EmotionStatus.Wandering:
+                    index = 30 + delta;
+                    break;
+                case EmotionStatus.Thinking:
+                    index = 70 + delta;
+                    break;
+                case EmotionStatus.HandUp:
+                    index = 80 + delta;
+                    break;
+                case EmotionStatus.Shaking:
+                    index = 85 + delta;
+                    break;
+                case EmotionStatus.Nodding:
+                    index = 90 + delta;
+                    break;
+                case EmotionStatus.Freezed:
+                case EmotionStatus.None:
+                    index = 50;
+                    break;
+            }
+
+            return index;
         }
     }
 }
