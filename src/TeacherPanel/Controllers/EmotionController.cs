@@ -29,7 +29,7 @@
                 LastUpdateTime = DateTime.UtcNow;
 
                 var hubContext = GlobalHost.ConnectionManager.GetHubContext<ReportHub>();
-                hubContext.Clients.All.renderReport(StatusCollection.GetConclusion());
+                hubContext.Clients.All.renderReport(StatusCollection.Load(), StatusCollection.GetConclusion());
 
                 return true;
             }

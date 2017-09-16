@@ -42,7 +42,8 @@
     $(function () {
         var chat = $.connection.reportHub;
         
-        chat.client.renderReport = function (conclusion) {
+        chat.client.renderReport = function (clients, conclusion) {
+            console.log(clients);
             $("#conclusion").text(conclusion);
         };
 
