@@ -67,8 +67,8 @@
                         <div class="ui extra content horizontal segments">
                             <div class="ui center aligned segment">
                                 <div class="ui blue statistic">
-                                    <div class="value">
-                                        65
+                                    <div class="value" id="number-focus-index">
+                                        --
                                     </div>
                                     <div class="label">
                                         注意力指数
@@ -77,8 +77,8 @@
                             </div>
                             <div class="ui center aligned segment">
                                 <div class="ui green statistic">
-                                    <div class="value">
-                                        5
+                                    <div class="value" id="number-handup-count">
+                                        --
                                     </div>
                                     <div class="label">
                                         回答问题数
@@ -118,6 +118,8 @@
         </div>
     </div>
 
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
     <script src="~/Scripts/main-panel.js"></script>
 </body>
 </html>

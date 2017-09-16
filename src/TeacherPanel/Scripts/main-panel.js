@@ -49,4 +49,20 @@ $(function () {
             LLLL: "YYYY年MMMD日 dddd Ah点mm分ss秒",
         }
     });
+
+    var chat = $.connection.reportHub;
+
+    chat.client.addMessage = function (message, type) {
+        add_message(message, type);
+    };
+
+    chat.client.updateFocusIndex = function (number) {
+        $("#number-focus-index").text(number);
+    };
+
+    chat.client.updateHandupCount = function (number) {
+        $("#number-handup-count").text(number);
+    };
+
+    $.connection.hub.start();
 });
