@@ -1,8 +1,9 @@
 ﻿namespace TeacherPanel.Controllers
 {
+    using Microsoft.AspNet.SignalR;
     using System;
-    using System.Linq;
     using System.Web.Http;
+    using TeacherPanel.Hubs;
     using TeacherPanel.Models;
 
     [Route("api/Emotion")]
@@ -14,7 +15,7 @@
         [HttpGet]
         public ReduceResult Get()
         {
-            return new ReduceResult(RequestCounter, GetWording(), LastUpdateTime);
+            return new ReduceResult(RequestCounter, StatusCollection.GetConclusion(), LastUpdateTime);
         }
 
         [HttpPost]
@@ -27,18 +28,15 @@
                 RequestCounter += 1;
                 LastUpdateTime = DateTime.UtcNow;
 
+                var hubContext = GlobalHost.ConnectionManager.GetHubContext<ReportHub>();
+                hubContext.Clients.All.renderReport(StatusCollection.GetConclusion());
+
                 return true;
             }
             else
             {
                 return false;
             }
-        }
-
-        private string GetWording()
-        {
-            var list = StatusCollection.Load();
-            return string.Join(";", list.Select(x => x.Client + "=" + x.Emotion + "=" + x.UpdateTime.ToString("mm:ss")).ToArray());
         }
 
         [HttpDelete]

@@ -29,6 +29,12 @@ namespace TeacherPanel.Models
         {
             _storage = new Dictionary<string, StatusItem>();
         }
+
+        public static string GetConclusion()
+        {
+            var list = StatusCollection.Load();
+            return string.Join(";", list.Select(x => x.Client + "=" + x.Emotion + "=" + x.UpdateTime.ToString("mm:ss")).ToArray());
+        }
     }
 
     public class StatusItem
