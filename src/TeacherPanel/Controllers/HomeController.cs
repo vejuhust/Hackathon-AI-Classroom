@@ -20,7 +20,12 @@
         {
             ViewBag.Message = "Your contact page.";
 
-            return View("~/Views/Home/Report.cshtml");
+            return View();
+        }
+
+        public ActionResult Report()
+        {
+            return View();
         }
     }
 }
