@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="~/Content/semantic.min.css" />
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <script src="~/Content/semantic.min.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
     <style>
         .ui#content {
             padding-top: 20px;
@@ -102,14 +104,14 @@
                         Notification
                     </div>
                 </h3>
-                <div class="ui icon warning message">
-                    <i class="close icon"></i>
-                    <i class="warning icon"></i>
-                    <div class="content">
-                        <div class="header">
-                            林萌萌小朋友举手啦！
+                <div id="notification-area">
+                    <div id="template-notification" class="ui icon hidden message">
+                        <i class="close icon"></i>
+                        <div class="content">
+                            <div class="header">
+                            </div>
+                            <p></p>
                         </div>
-                        <p>这是她今天第一次举手，请老师关注并查看详情。</p>
                     </div>
                 </div>
             </div>
