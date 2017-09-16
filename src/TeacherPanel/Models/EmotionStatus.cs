@@ -5,6 +5,7 @@
         None = 0,
         Freezed,
         Sleeping,
+        Streching,
         Wandering,
         Thinking,
         HandUp,

@@ -64,7 +64,12 @@
 
             if (emotionStatus == EmotionStatus.HandUp)
             {
+                hubContext.Clients.All.raiseHand();
                 hubContext.Clients.All.updateHandupCount(StatusCollection.CountHandUp(client));
+            }
+            else
+            {
+                hubContext.Clients.All.putHandDown();
             }
         }
 
@@ -83,6 +88,9 @@
             {
                 case EmotionStatus.Sleeping:
                     index = 10;
+                    break;
+                case EmotionStatus.Streching:
+                    index = 20 + delta >> 1;
                     break;
                 case EmotionStatus.Wandering:
                     index = 30 + delta;

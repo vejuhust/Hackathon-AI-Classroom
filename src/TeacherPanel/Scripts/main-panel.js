@@ -7,6 +7,32 @@
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
+function absence_on() {
+    $('#offline-signal-area').dimmer('show');
+}
+
+function absence_off() {
+    $('#offline-signal-area').dimmer('hide');
+}
+
+function raise_hand_on() {
+    var icon_area = $('#handup-signal-area');
+    icon_area.dimmer('setting', {
+        duration: {
+            show: 500,
+            hide: 300
+        },
+        onShow: function () {
+            icon_area.transition('bounce');
+        },
+    }).dimmer('show');
+}
+
+function raise_hand_off() {
+    var icon_area = $('#handup-signal-area');
+    icon_area.dimmer('hide');
+}
+
 function add_message(message, status) {
     var ui_style, ui_icon;
     switch (status) {
@@ -50,6 +76,8 @@ $(function () {
         }
     });
 
+    absence_on();
+
     var chat = $.connection.reportHub;
 
     chat.client.printLog = function (message) {
@@ -66,6 +94,14 @@ $(function () {
 
     chat.client.updateHandupCount = function (number) {
         $("#number-handup-count").text(number);
+    };
+
+    chat.client.raiseHand = function () {
+        raise_hand_on();
+    };
+
+    chat.client.putHandDown = function () {
+        raise_hand_off();
     };
 
     $.connection.hub.start();
