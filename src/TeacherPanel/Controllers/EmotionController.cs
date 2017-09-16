@@ -19,7 +19,7 @@
         }
 
         [HttpPost]
-        public bool Post([FromUri]MapRequest model)
+        public bool Post([FromBody]MapRequest model)
         {
             if (model != null && !string.IsNullOrWhiteSpace(model.Client) && !string.IsNullOrWhiteSpace(model.Emotion))
             {
