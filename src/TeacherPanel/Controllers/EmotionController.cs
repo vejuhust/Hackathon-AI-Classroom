@@ -1,5 +1,4 @@
-﻿
-namespace TeacherPanel.Controllers
+﻿namespace TeacherPanel.Controllers
 {
     using System;
     using System.Linq;
