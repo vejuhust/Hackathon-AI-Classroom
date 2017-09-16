@@ -177,6 +177,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\ReportHub.cs" />
+    <Compile Include="Models\EmotionStatus.cs" />
     <Compile Include="Models\MapRequest.cs" />
     <Compile Include="Models\ReduceResult.cs" />
     <Compile Include="Models\StatusCollection.cs" />

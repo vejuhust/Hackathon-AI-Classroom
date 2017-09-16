@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNet.SignalR;
     using System;
+    using System.Linq;
     using System.Web.Http;
     using TeacherPanel.Hubs;
     using TeacherPanel.Models;
@@ -16,19 +17,6 @@
         public ReduceResult Get()
         {
             return new ReduceResult(RequestCounter, StatusCollection.GetConclusion(), LastUpdateTime);
-        }
-
-        private static void ProcessEmotionRequest(string client, string emotion)
-        {
-            var hubContext = GlobalHost.ConnectionManager.GetHubContext<ReportHub>();
-            hubContext.Clients.All.addMessage($"{client} - {emotion}");
-
-            hubContext.Clients.All.updateFocusIndex((client + emotion).Length);
-
-            if (emotion == "handup")
-            {
-                hubContext.Clients.All.updateHandupCount(RequestCounter);
-            }
         }
 
         [HttpPost]
@@ -54,6 +42,31 @@
         public void Delete()
         {
             StatusCollection.Reset();
+        }
+
+        private static void ProcessEmotionRequest(string client, string emotion)
+        {
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<ReportHub>();
+
+            var emotionStatus = Enum.GetNames(typeof(EmotionStatus)).Any(x => x.ToLowerInvariant() == emotion.ToLowerInvariant())
+              ? (EmotionStatus)Enum.Parse(typeof(EmotionStatus), emotion, true)
+              : EmotionStatus.None;
+
+            hubContext.Clients.All.printLog($"{DateTime.UtcNow:O} '{client}' post: {emotion} - {emotionStatus}");
+
+            if (emotionStatus == EmotionStatus.None || emotionStatus == EmotionStatus.Freezed)
+            {
+                return;
+            }
+
+            hubContext.Clients.All.addMessage($"{client} - {emotionStatus}");
+
+            hubContext.Clients.All.updateFocusIndex((client + emotion).Length);
+
+            if (emotionStatus == EmotionStatus.HandUp)
+            {
+                hubContext.Clients.All.updateHandupCount(StatusCollection.CountHandUp(client));
+            }
         }
     }
 }

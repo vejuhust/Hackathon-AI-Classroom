@@ -52,6 +52,10 @@ $(function () {
 
     var chat = $.connection.reportHub;
 
+    chat.client.printLog = function (message) {
+        console.log(message);
+    };
+
     chat.client.addMessage = function (message, type) {
         add_message(message, type);
     };

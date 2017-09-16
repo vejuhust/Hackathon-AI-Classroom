@@ -8,6 +8,7 @@ namespace TeacherPanel.Models
     public static class StatusCollection
     {
         private static Dictionary<string, StatusItem> _storage = new Dictionary<string, StatusItem>();
+        private static Dictionary<string, int> _counter = new Dictionary<string, int>();
 
         public static bool Save(string client, string emotion)
         {
@@ -20,6 +21,25 @@ namespace TeacherPanel.Models
             return true;
         }
 
+        public static int CountHandUp(string client)
+        {
+            if (string.IsNullOrWhiteSpace(client))
+            {
+                return 0;
+            }
+
+            if (_counter.ContainsKey(client))
+            {
+                _counter[client] += 1;
+            }
+            else
+            {
+                _counter[client] = 1;
+            }
+
+            return _counter[client];
+        }
+
         public static List<StatusItem> Load(int limit = 10)
         {
             return _storage.ToList().OrderByDescending(x => x.Value.UpdateTime).Select(x => x.Value).Take(limit).ToList();
@@ -28,6 +48,7 @@ namespace TeacherPanel.Models
         public static void Reset()
         {
             _storage = new Dictionary<string, StatusItem>();
+            _counter = new Dictionary<string, int>();
         }
 
         public static string GetConclusion()
