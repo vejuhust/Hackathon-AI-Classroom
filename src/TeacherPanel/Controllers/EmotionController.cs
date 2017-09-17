@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNet.SignalR;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using TeacherPanel.Hubs;
@@ -12,6 +13,7 @@
     {
         private static int RequestCounter = 0;
         private static DateTime LastUpdateTime = DateTime.UtcNow;
+        private static Random RandomGenerator = new Random();
 
         [HttpGet]
         public ReduceResult Get()
@@ -29,7 +31,7 @@
 
                 RequestCounter += 1;
                 LastUpdateTime = DateTime.UtcNow;
-                
+
                 return true;
             }
             else
@@ -59,7 +61,7 @@
                 return;
             }
 
-            hubContext.Clients.All.addMessage(GenerateMessage(client, emotionStatus));
+            hubContext.Clients.All.addMessage(GenerateMessage(client, emotionStatus), GetMessageType(emotionStatus));
             hubContext.Clients.All.updateFocusIndex(ComputeFocusIndex(emotionStatus));
 
             if (emotionStatus == EmotionStatus.HandUp)
@@ -73,15 +75,86 @@
             }
         }
 
+        private static string GetMessageType(EmotionStatus emotion)
+        {
+            var type = string.Empty;
+
+            switch (emotion)
+            {
+                case EmotionStatus.Absence:
+                case EmotionStatus.Sleeping:
+                    type = "error";
+                    break;
+                case EmotionStatus.Wandering:
+                case EmotionStatus.Streching:
+                    type = "warning";
+                    break;
+                case EmotionStatus.HandUp:
+                case EmotionStatus.Nodding:
+                    type = "success";
+                    break;
+                case EmotionStatus.Thinking:
+                case EmotionStatus.Shaking:
+                case EmotionStatus.Freezed:
+                default:
+                    type = "info";
+                    break;
+            }
+
+            return type;
+        }
+
         private static string GenerateMessage(string client, EmotionStatus emotion)
         {
-            return $"{client} - {emotion}";
+            var name = "王洋洋同学";
+
+            var template = string.Empty;
+
+            switch (emotion)
+            {
+                case EmotionStatus.Absence:
+                    template = RandomChoice(new string[] { "{0}已经离开", "{0}已离席", "{0}似乎不见" });
+                    break;
+                case EmotionStatus.Sleeping:
+                    template = RandomChoice(new string[] { "{0}似乎睡着了的样子", "{0}正在酣睡中ZZzzzzZZZzzz..." });
+                    break;
+                case EmotionStatus.Wandering:
+                    template = RandomChoice(new string[] { "{0}已经开始神游 yooooooo~~~" });
+                    break;
+                case EmotionStatus.Streching:
+                    template = RandomChoice(new string[] { "{0}伸了个懒腰并打了个哈气", "{0}可能要准备睡了", "{0}觉得困困困了～～～唉～～～" });
+                    break;
+                case EmotionStatus.HandUp:
+                    template = RandomChoice(new string[] { "{0}举起了小手👋", "{0}举起了小手🙋‍", "{0}举手要求回答问题啦！" });
+                    break;
+                case EmotionStatus.Nodding:
+                    template = RandomChoice(new string[] { "{0}听的很投入", "{0}听懂了耶✌️" });
+                    break;
+                case EmotionStatus.Thinking:
+                    template = RandomChoice(new string[] { "{0}正在认真思考", "{0}陷入了思索～" });
+                    break;
+                case EmotionStatus.Shaking:
+                    template = RandomChoice(new string[] { "{0}似乎没有听懂", "{0}可能需要您阐述的再详细一些" });
+                    break;
+                case EmotionStatus.Freezed:
+                case EmotionStatus.None:
+                default:
+                    template = "{0}正在听讲～";
+                    break;
+            }
+
+            return string.Format(template, name);
+        }
+
+        private static T RandomChoice<T>(IEnumerable<T> list)
+        {
+            var index = RandomGenerator.Next(list.Count());
+            return list.ElementAtOrDefault(index);
         }
 
         private static int ComputeFocusIndex(EmotionStatus emotion)
         {
-            var rnd = new Random();
-            int delta = rnd.Next(1, 10);
+            int delta = RandomGenerator.Next(1, 10);
 
             var index = 0;
             switch (emotion)
