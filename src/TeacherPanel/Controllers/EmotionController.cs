@@ -16,7 +16,7 @@
         [HttpGet]
         public ReduceResult Get()
         {
-            return new ReduceResult(RequestCounter, StatusCollection.GetConclusion(), LastUpdateTime);
+            return new ReduceResult(RequestCounter, StatusCollection.Load(), LastUpdateTime);
         }
 
         [HttpPost]

@@ -3,6 +3,7 @@
     public enum EmotionStatus
     {
         None = 0,
+        Absence,
         Freezed,
         Sleeping,
         Streching,

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TeacherPanel.Models
 {
@@ -6,14 +7,14 @@ namespace TeacherPanel.Models
     {
         public int Count { get; set; }
 
-        public string Wording { get; set; }
+        public IEnumerable<StatusItem> Status { get; set; }
 
         public string Time { get; set; }
 
-        public ReduceResult(int count, string wording, DateTime time)
+        public ReduceResult(int count, IEnumerable<StatusItem> status, DateTime time)
         {
             this.Count = count;
-            this.Wording = wording;
+            this.Status = status;
             this.Time = time.ToString("O");
         }
     }
