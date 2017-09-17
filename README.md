@@ -1,4 +1,4 @@
-# Hackathon Project: AI Classroom - Panel
+# Hackathon Project: AI Classroom
 
 ## Hackathon
 
@@ -9,3 +9,12 @@
 * Goal: 商汤科技组——人工智能改善人类生活
 * Project: AI Classroom 智能交互课堂
 * Result: Ranked 2 out of 4
+
+
+## Slide
+
+
+
+## Source Code
+
+教师端监控部分的[源代码](/src)见此。
