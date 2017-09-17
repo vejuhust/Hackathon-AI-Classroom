@@ -13,7 +13,7 @@
 
 ## Slide
 
-
+点击下载路演用的[幻灯片](/slide.pptx)
 
 ## Source Code
 
