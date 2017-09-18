@@ -25,3 +25,10 @@ Technologies:
 * [ASP.NET Web API 2](https://www.asp.net/web-api)
 * [SignalR](https://www.asp.net/signalr)
 * [Semantic UI](https://www.asp.net/web-api)
+
+
+## Screenshot
+
+网站运行时教师端的的[截图](/screenshot/screen/screen5.png)见此。
+
+![Screen Example 1](/src/)
