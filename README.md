@@ -13,7 +13,7 @@
 
 ## Slide
 
-点击下载路演所使用的[幻灯片](/slide.pptx)。
+点击下载路演时所使用的[幻灯片](/slide.pptx)。
 
 
 ## Source Code
@@ -21,10 +21,10 @@
 教师端监控部分的[源代码](/src)见此。
 
 Technologies:
-* [ASP.NET MVC 5](https://www.asp.net/web-api)
+* [ASP.NET MVC 5](https://www.asp.net/mvc)
 * [ASP.NET Web API 2](https://www.asp.net/web-api)
 * [SignalR](https://www.asp.net/signalr)
-* [Semantic UI](https://www.asp.net/web-api)
+* [Semantic UI 2.2](https://semantic-ui.com/)
 
 
 ## Screenshot
