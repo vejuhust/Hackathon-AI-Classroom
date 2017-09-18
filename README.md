@@ -29,6 +29,6 @@ Technologies:
 
 ## Screenshot
 
-网站运行时教师端的的[截图](/screenshot/screen/screen5.png)见此。
+网站运行时教师端的的[截图](/screenshot)见此。
 
-![Screen Example 1](/src/)
+![Screen Example 1](/screenshot/screen5.png)
