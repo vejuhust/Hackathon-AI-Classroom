@@ -13,7 +13,7 @@
 
 ## Slide
 
-点击下载路演用的[幻灯片](/slide.pptx)
+点击下载路演所使用的[幻灯片](/slide.pptx)。
 
 
 ## Source Code
@@ -29,6 +29,6 @@ Technologies:
 
 ## Screenshot
 
-网站运行时教师端的的[截图](/screenshot)见此。
+网站运行时的[截图](/screenshot)见此。
 
 ![Screen Example 1](/screenshot/screen5.png)
